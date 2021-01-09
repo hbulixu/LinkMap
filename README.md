@@ -29,11 +29,8 @@ XCode -> Project -> Build Settings -> 把Write Link Map File选项设为yes，�
 2.工程编译完成后，在编译目录里找到Link Map文件（txt类型)
 默认的文件地址：~/Library/Developer/Xcode/DerivedData/XXX-xxxxxxxxxxxxx/Build/Intermediates/XXX.build/Debug-iphoneos/XXX.build/ \n\
 
+增加# Dead Stripped Symbols:过滤，精确链接后的包大小
 
-## 联系我
-
-如有问题或建议欢迎通过邮件联系我
-67111677@qq.com
 
 ## 最后
 

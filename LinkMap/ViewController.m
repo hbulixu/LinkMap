@@ -119,7 +119,7 @@
     BOOL reachFiles = NO;
     BOOL reachSymbols = NO;
     BOOL reachSections = NO;
-    
+    BOOL reachDeadSymbols = NO;
     for(NSString *line in lines) {
         if([line hasPrefix:@"#"]) {
             if([line hasPrefix:@"# Object files:"])
@@ -128,6 +128,8 @@
                 reachSections = YES;
             else if ([line hasPrefix:@"# Symbols:"])
                 reachSymbols = YES;
+            else if ([line hasPrefix:@"# Dead Stripped Symbols:"])
+                reachDeadSymbols = YES;
         } else {
             if(reachFiles == YES && reachSections == NO && reachSymbols == NO) {
                 NSRange range = [line rangeOfString:@"]"];
@@ -137,7 +139,7 @@
                     NSString *key = [line substringToIndex:range.location+1];
                     symbolMap[key] = symbol;
                 }
-            } else if (reachFiles == YES && reachSections == YES && reachSymbols == YES) {
+            } else if (reachFiles == YES && reachSections == YES && reachSymbols == YES && reachDeadSymbols == NO) {
                 NSArray <NSString *>*symbolsArray = [line componentsSeparatedByString:@"\t"];
                 if(symbolsArray.count == 3) {
                     NSString *fileKeyAndName = symbolsArray[2];
